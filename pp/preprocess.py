@@ -92,7 +92,7 @@ def main():
     parser.add_argument('--lower_th', type=float, default=0.05, help='Descripción del argumento lower_th')
     parser.add_argument('--upper_th', type=float, default=0.8, help='Descripción del argumento upper_th')
     parser.add_argument('--split_record', type=str, default='cb_vss_train_4x/split_record.json', help='Descripción del argumento split_record')
-
+    parser.add_argument('--crop', action='store_true', help='Enable image cropping')
 
     FLAGS = parser.parse_args()
 

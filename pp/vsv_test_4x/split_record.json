@@ -1,0 +1,8 @@
+{
+    "input_files": [
+        "vsv_test_4x/input\\VSV_390625_CS_v1_4x.png"
+    ],
+    "target_files": [
+        "vsv_test_4x/target\\VSV_390625_LS_4x.png"
+    ]
+}
