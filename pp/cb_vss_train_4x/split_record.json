@@ -1,0 +1,10 @@
+{
+    "input_files": [
+        "cb_vss_train_4x/input\\CB_390625_CS_v1_4x.png",
+        "cb_vss_train_4x/input\\VSS_390625_CS_v1_4x.png"
+    ],
+    "target_files": [
+        "cb_vss_train_4x/target\\CB_390625_LS_4x.png",
+        "cb_vss_train_4x/target\\VSS_390625_LS_4x.png"
+    ]
+}

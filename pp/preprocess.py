@@ -1,6 +1,7 @@
 import argparse
 import glob
 import os
+import json
 
 import cv2
 import numpy as np
@@ -69,34 +70,29 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--input_dir', type=str, default='input')
-
     parser.add_argument('--target_dir', type=str, default='target')
-
     parser.add_argument('--split_h', type=int, default=256)
-
     parser.add_argument('--split_w', type=int, default=256)
-
     parser.add_argument('--split_name', type=str, default='split')
-
     parser.add_argument('--resize', action='store_true')
-
     parser.add_argument('--resize_name', type=str, default='resize')
-
     parser.add_argument('--input_res_h', type=float, default=1.0)
-
     parser.add_argument('--input_res_w', type=float, default=1.0)
-
     parser.add_argument('--split_tile_h', type=float, default=1000)
-
     parser.add_argument('--split_tile_w', type=float, default=1000)
-
     parser.add_argument('--exclude', action='store_true')
-
     parser.add_argument('--exclude_th', type=float, default=0)
-
     parser.add_argument('--overlap', type=float, default=0)
-
     parser.add_argument('--num_start', type=int, default=0, choices=[0, 1])
+    parser.add_argument('--polygon_split', type=int, default=1, help='Descripción del argumento polygon_split')
+    parser.add_argument('--dummy_ratio', type=int, default=2, help='Descripción del argumento dummy_ratio')
+    parser.add_argument('--shift8', action='store_true', help='Descripción del argumento shift8')
+    parser.add_argument('--border_exclude', action='store_true', help='Descripción del argumento border_exclude')
+    parser.add_argument('--inflation', type=int, default=1, help='Descripción del argumento inflation')
+    parser.add_argument('--lower_th', type=float, default=0.05, help='Descripción del argumento lower_th')
+    parser.add_argument('--upper_th', type=float, default=0.8, help='Descripción del argumento upper_th')
+    parser.add_argument('--split_record', type=str, default='cb_vss_train_4x/split_record.json', help='Descripción del argumento split_record')
+
 
     FLAGS = parser.parse_args()
 
@@ -189,6 +185,20 @@ def main():
                 cv2.imwrite(input_split, img1_split)
                 target_split = os.path.join(target_split_dir, split_name)
                 cv2.imwrite(target_split, img2_split)
+    
+    # Agregar el código para guardar el registro en un archivo JSON
+    split_records = {
+        'input_files': input_list,
+        'target_files': target_list,
+        # Agrega aquí cualquier otro dato que desees registrar
+    }
+
+    # Ruta del archivo JSON
+    split_record_path = FLAGS.split_record
+
+    # Guardar el diccionario en el archivo JSON
+    with open(split_record_path, 'w') as json_file:
+        json.dump(split_records, json_file, indent=4)
 
 
 if __name__ == "__main__":
