@@ -2,3 +2,6 @@ argparse
 glob2
 opencv-python
 numpy
+visdom
+torch
+torchvision
