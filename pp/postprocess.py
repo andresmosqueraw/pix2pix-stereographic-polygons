@@ -210,6 +210,10 @@ def analyze(FLAGS):
     img_target = cv2.imread(tar)
     img_output = cv2.imread(out)
 
+    # Verificar y ajustar las dimensiones de img_output para que coincidan con img_target
+    if img_target.shape != img_output.shape:
+        img_output = cv2.resize(img_output, (img_target.shape[1], img_target.shape[0]), interpolation=cv2.INTER_AREA)
+
     input_base = os.path.splitext(os.path.basename(inp))[0]
 
     print(inp, tar, out)
@@ -287,14 +291,19 @@ def main():
   parser = argparse.ArgumentParser()
 
   parser.add_argument('--test_dir', type=str, default='results/CS_pix2pix/test_latest/images_tf')
-
   parser.add_argument('--input_dir', type=str, default='org_image/input')
-
   parser.add_argument('--target_dir', type=str, default='org_image/target')
-
   parser.add_argument('--output_dir', type=str, default='output')
-
   parser.add_argument('--output_data', type=str, default='out.csv')
+  
+  parser.add_argument('--ignore_empty_px', action='store_true')
+  parser.add_argument('--split_record', type=str, default='')
+  parser.add_argument('--lower_th', type=float, default=0.0)
+  parser.add_argument('--upper_th', type=float, default=1.0)
+  parser.add_argument('--merge', action='store_true')
+  parser.add_argument('--result', action='store_true')
+  parser.add_argument('--debug', action='store_true')
+
 
   FLAGS = parser.parse_args()
   # print(FLAGS)
